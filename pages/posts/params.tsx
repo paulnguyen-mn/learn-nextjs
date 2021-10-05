@@ -2,9 +2,12 @@ import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import * as React from 'react'
 
-export interface ParamsPageProps {}
+export interface ParamsPageProps {
+	query: any
+	post: any
+}
 
-export default function ParamsPage(props: ParamsPageProps) {
+export default function ParamsPage({ query, post }: ParamsPageProps) {
 	const router = useRouter()
 
 	return (
@@ -12,6 +15,11 @@ export default function ParamsPage(props: ParamsPageProps) {
 			<h1>Params Page</h1>
 
 			<p>Query: {JSON.stringify(router.query, null, 4)}</p>
+
+			<h2>Post detail</h2>
+			<p>{post?.title}</p>
+			<p>{post?.author}</p>
+			<p>{post?.description}</p>
 		</div>
 	)
 }
@@ -21,9 +29,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 	await new Promise((res) => setTimeout(res, 2500))
 
+	const postId = context.query.postId
+	if (!postId) return { props: { query: context.query } }
+
+	const response = await fetch(`https://js-post-api.herokuapp.com/api/posts/${postId}`)
+	const data = await response.json()
+
 	return {
 		props: {
 			query: context.query,
+			post: data,
 		},
 	}
 }
