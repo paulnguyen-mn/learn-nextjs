@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/dist/client/router'
-import * as React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export interface ParamsPageProps {
 	query: any
@@ -9,12 +9,25 @@ export interface ParamsPageProps {
 
 export default function ParamsPage({ query, post }: ParamsPageProps) {
 	const router = useRouter()
+	const [seconds, setSeconds] = useState(0)
+
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			setSeconds((x) => {
+				if (x > 60) clearInterval(intervalId)
+
+				return x + 1
+			})
+		}, 1000)
+
+		return () => clearInterval(intervalId)
+	}, [])
 
 	return (
 		<div>
 			<h1>Params Page</h1>
 
-			<p>Query: {JSON.stringify(router.query, null, 4)}</p>
+			<p>Time: {seconds}s</p>
 
 			<h2>Post detail</h2>
 			<p>{post?.title}</p>
@@ -25,9 +38,9 @@ export default function ParamsPage({ query, post }: ParamsPageProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-	context.res.setHeader('Cache-Control', 's-maxage=5, stale-while-revalidate=5')
+	context.res.setHeader('Cache-Control', 's-maxage=5, stale-while-revalidate')
 
-	await new Promise((res) => setTimeout(res, 2500))
+	await new Promise((res) => setTimeout(res, 3000))
 
 	const postId = context.query.postId
 	if (!postId) return { props: { query: context.query } }
