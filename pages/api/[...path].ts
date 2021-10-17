@@ -49,7 +49,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<any>) 
 					cookies.set('access_token', access_token, {
 						httpOnly: true,
 						sameSite: 'strict',
-						secure: process.env.NODE_ENV === 'production',
+						// secure: process.env.NODE_ENV === 'production',
 						expires: new Date(expiredAt),
 					})
 
