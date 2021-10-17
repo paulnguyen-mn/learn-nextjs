@@ -13,6 +13,7 @@ export const config = {
 	api: {
 		bodyParser: false,
 	},
+	proxy: true,
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<any>) {
@@ -50,8 +51,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<any>) 
 					const cookies = new Cookies(req, res)
 					cookies.set('access_token', accessToken, {
 						httpOnly: true,
-						secure: false,
-						sameSite: 'strict',
+						secure: true,
+						sameSite: 'lax',
 						expires: new Date(expiredAt),
 					})
 
