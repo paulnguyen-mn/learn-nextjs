@@ -50,7 +50,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<any>) 
 					const cookies = new Cookies(req, res)
 					cookies.set('access_token', accessToken, {
 						httpOnly: true,
-						secure: true,
+						secure: false,
 						sameSite: 'strict',
 						expires: new Date(expiredAt),
 					})
