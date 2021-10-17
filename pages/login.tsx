@@ -1,6 +1,6 @@
 import Header from '@/components/common/header'
 import { AdminLayout } from '@/components/layout'
-import authApi from 'api/authApi'
+import authApi from 'api-client/authApi'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 // import dynamic from 'next/dynamic'
