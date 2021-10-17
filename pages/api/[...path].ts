@@ -7,7 +7,9 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 // 	name: string
 // }
 
-const proxy = httpProxy.createProxyServer()
+const proxy = httpProxy.createProxyServer({
+	secure: false,
+})
 
 export const config = {
 	api: {
