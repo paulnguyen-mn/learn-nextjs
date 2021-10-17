@@ -9,6 +9,17 @@ import React, { useEffect, useState } from 'react'
 
 export default function LoginPage() {
 	const router = useRouter()
+	const [profile, setProfile] = useState(null)
+
+	async function handleGetProfileClick() {
+		try {
+			try {
+				await authApi.getProfile()
+			} catch (error) {
+				console.log('failed to get profile', error)
+			}
+		} catch (error) {}
+	}
 
 	async function handleLoginClick() {
 		try {
@@ -26,6 +37,7 @@ export default function LoginPage() {
 			<h1>Login Page</h1>
 
 			<button onClick={handleLoginClick}>Login</button>
+			<button onClick={handleGetProfileClick}>Get profile</button>
 		</div>
 	)
 }
