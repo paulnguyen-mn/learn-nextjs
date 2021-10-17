@@ -21,6 +21,16 @@ export default function LoginPage() {
 		} catch (error) {}
 	}
 
+	async function handleLogoutClick() {
+		try {
+			try {
+				await authApi.logout()
+			} catch (error) {
+				console.log('failed to logout', error)
+			}
+		} catch (error) {}
+	}
+
 	async function handleLoginClick() {
 		try {
 			await authApi.login({
@@ -38,6 +48,7 @@ export default function LoginPage() {
 
 			<button onClick={handleLoginClick}>Login</button>
 			<button onClick={handleGetProfileClick}>Get profile</button>
+			<button onClick={handleLogoutClick}>Logout</button>
 		</div>
 	)
 }
