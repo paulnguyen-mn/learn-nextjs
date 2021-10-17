@@ -7,9 +7,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 // 	name: string
 // }
 
-const proxy = httpProxy.createProxyServer({
-	secure: false,
-})
+const proxy = httpProxy.createProxyServer()
 
 export const config = {
 	api: {
@@ -53,7 +51,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<any>) 
 					const cookies = new Cookies(req, res)
 					cookies.set('access_token', accessToken, {
 						httpOnly: true,
-						secure: true,
 						sameSite: 'lax',
 						expires: new Date(expiredAt),
 					})
