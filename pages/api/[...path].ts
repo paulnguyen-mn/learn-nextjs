@@ -13,13 +13,11 @@ export const config = {
 	api: {
 		bodyParser: false,
 	},
-	proxy: true,
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<any>) {
 	return new Promise((resolve, reject) => {
 		const isLogin = req.url?.startsWith('/api/login')
-		console.log({ isLogin })
 
 		// Convert cookies to Authorization header
 		const cookies = new Cookies(req, res)
@@ -32,7 +30,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<any>) 
 		req.headers.cookie = ''
 
 		const handleLoginResponse: ProxyResCallback = (proxyResponse, req, res) => {
-			console.log('proxy response in')
 			if (!isLogin) return resolve(true)
 
 			let apiResponseBody = ''
@@ -43,22 +40,23 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<any>) 
 			proxyResponse.on('end', () => {
 				try {
 					// Extract the authToken from API's response:
-					console.log({ apiResponseBody })
-					const { accessToken, expiredAt } = JSON.parse(apiResponseBody)
+					const { access_token, expiredAt } = JSON.parse(apiResponseBody)
+					console.log({ accessToken: access_token, expiredAt })
 					// Set the authToken as an HTTP-only cookie.
 					// We'll also set the SameSite attribute to
 					// 'lax' for some additional CSRF protection.
 					const cookies = new Cookies(req, res)
-					cookies.set('access_token', accessToken, {
+					cookies.set('access_token', access_token, {
 						httpOnly: true,
-						sameSite: 'lax',
+						sameSite: 'strict',
+						secure: process.env.NODE_ENV === 'production',
 						expires: new Date(expiredAt),
 					})
 
 					// Our response to the client won't contain
 					// the actual authToken. This way the auth token
 					// never gets exposed to the client.
-					;(res as NextApiResponse).json({ message: true })
+					;(res as NextApiResponse).status(200).json({ message: true })
 					resolve({})
 				} catch (error) {
 					console.log('parse token error', error)
