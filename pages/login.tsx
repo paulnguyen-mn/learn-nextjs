@@ -1,15 +1,15 @@
-import Header from '@/components/common/header'
-import { AdminLayout } from '@/components/layout'
-import authApi from 'api-client/authApi'
+import { useAuth } from '@/hooks/use-auth'
+import authApi from 'api-client/auth-api'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useSWRConfig } from 'swr'
 // import dynamic from 'next/dynamic'
 
 // const Header = dynamic(() => import('@/components/common/header'), { ssr: false })
 
 export default function LoginPage() {
 	const router = useRouter()
-	const [profile, setProfile] = useState(null)
+	const { mutate, login } = useAuth({ revalidateOnMount: false })
 
 	async function handleGetProfileClick() {
 		try {
@@ -23,23 +23,23 @@ export default function LoginPage() {
 
 	async function handleLogoutClick() {
 		try {
-			try {
-				await authApi.logout()
-			} catch (error) {
-				console.log('failed to logout', error)
-			}
-		} catch (error) {}
+			await authApi.logout()
+		} catch (error) {
+			console.log('failed to logout', error)
+		}
 	}
 
 	async function handleLoginClick() {
 		try {
-			await authApi.login({
-				username: 'test1',
-				password: '123123',
-			})
+			await login()
+			router.push('/about')
 		} catch (error) {
 			console.log('failed to login', error)
 		}
+	}
+
+	function goToAbout() {
+		router.push('/about')
 	}
 
 	return (
@@ -48,6 +48,7 @@ export default function LoginPage() {
 
 			<button onClick={handleLoginClick}>Login</button>
 			<button onClick={handleGetProfileClick}>Get profile</button>
+			<button onClick={goToAbout}>Go to About</button>
 			<button onClick={handleLogoutClick}>Logout</button>
 		</div>
 	)

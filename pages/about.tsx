@@ -1,8 +1,12 @@
 import Header from '@/components/common/header'
 import { AdminLayout } from '@/components/layout'
+import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { useSWRConfig } from 'swr'
 // import dynamic from 'next/dynamic'
+
+const STATIC_PROFILE = { username: 'test' }
 
 // const Header = dynamic(() => import('@/components/common/header'), { ssr: false })
 
@@ -11,8 +15,9 @@ export interface AboutPageProps {}
 export default function AboutPage(props: AboutPageProps) {
 	const [postList, setPostList] = useState([])
 	const router = useRouter()
+	const { mutate } = useAuth()
 
-	console.log('About query: ', router.query)
+	// console.log('About query: ', router.query)
 	const page = router.query?.page
 
 	useEffect(() => {
@@ -38,6 +43,17 @@ export default function AboutPage(props: AboutPageProps) {
 		)
 	}
 
+	function handleMutateProfile() {
+		mutate(
+			{
+				username: 'test1',
+				city: 'South Cleveville',
+				email: 'keagan.hammes@ena.biz',
+			},
+			true
+		)
+	}
+
 	return (
 		<div>
 			<h1>About Page</h1>
@@ -51,6 +67,7 @@ export default function AboutPage(props: AboutPageProps) {
 			</ul>
 
 			<button onClick={handleNextClick}>Next page</button>
+			<button onClick={handleMutateProfile}>mutate profile</button>
 		</div>
 	)
 }

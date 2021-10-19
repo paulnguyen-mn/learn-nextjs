@@ -16,20 +16,24 @@ export const config = {
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<any>) {
-	// Convert cookies to Authorization header
-	const cookies = new Cookies(req, res)
-	const accessToken = cookies.get('access_token')
-	if (accessToken) {
-		req.headers.Authorization = `Bearer ${accessToken}`
-	}
+	return new Promise((resolve) => {
+		// Convert cookies to Authorization header
+		const cookies = new Cookies(req, res)
+		const accessToken = cookies.get('access_token')
+		if (accessToken) {
+			req.headers.Authorization = `Bearer ${accessToken}`
+		}
 
-	// don't forward cookies to API server
-	req.headers.cookie = ''
+		// don't forward cookies to API server
+		req.headers.cookie = ''
 
-	proxy.web(req, res, {
-		target: process.env.API_URL,
-		autoRewrite: false,
-		changeOrigin: true,
-		selfHandleResponse: false,
+		proxy.web(req, res, {
+			target: process.env.API_URL,
+			autoRewrite: false,
+			changeOrigin: true,
+			selfHandleResponse: false,
+		})
+
+		proxy.on('proxyRes', () => resolve(true))
 	})
 }

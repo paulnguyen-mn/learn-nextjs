@@ -1,10 +1,24 @@
+import { useAuth } from '@/hooks/use-auth'
 import { LayoutProps } from '@/models/index'
-import * as React from 'react'
 import Link from 'next/link'
+import router from 'next/router'
+import * as React from 'react'
+import { Auth } from '../common/auth'
 
 export function AdminLayout({ children }: LayoutProps) {
+	const { logout } = useAuth()
+
+	async function handleLogout() {
+		try {
+			await logout()
+			router.push('/login')
+		} catch (error) {
+			console.log('failed to logout', error)
+		}
+	}
+
 	return (
-		<div>
+		<Auth>
 			<h1>Admin Layout</h1>
 			<div>Sidebar</div>
 
@@ -16,7 +30,9 @@ export function AdminLayout({ children }: LayoutProps) {
 				<a>About</a>
 			</Link>
 
+			<button onClick={handleLogout}>Logout</button>
+
 			<div>{children}</div>
-		</div>
+		</Auth>
 	)
 }
