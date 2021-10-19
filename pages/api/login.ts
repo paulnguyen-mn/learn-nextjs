@@ -23,8 +23,6 @@ const handleLoginResponse: ProxyResCallback = (proxyResponse, req, res) => {
 
 	proxyResponse.on('end', () => {
 		try {
-			req.headers['x-forwarded-proto'] = 'https'
-
 			// Extract the authToken from API's response:
 			const { access_token, expiredAt } = JSON.parse(apiResponseBody)
 			console.log({ accessToken: access_token, expiredAt })
@@ -35,7 +33,6 @@ const handleLoginResponse: ProxyResCallback = (proxyResponse, req, res) => {
 			cookies.set('access_token', access_token, {
 				httpOnly: true,
 				sameSite: 'strict',
-				secure: process.env.NODE_ENV !== 'development',
 				expires: new Date(expiredAt),
 			})
 
@@ -54,8 +51,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 	if (req.method !== 'POST') {
 		return res.status(404).json({ message: 'method not supported' })
 	}
-
-	req.headers['x-forwarded-proto'] = 'https'
 
 	// don't forward cookie
 	req.headers.cookie = ''
