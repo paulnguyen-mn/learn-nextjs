@@ -33,7 +33,7 @@ const handleLoginResponse: ProxyResCallback = (proxyResponse, req, res) => {
 			cookies.set('access_token', access_token, {
 				httpOnly: true,
 				sameSite: 'lax',
-				secure: process.env.NODE_ENV !== 'development',
+				// secure: process.env.NODE_ENV !== 'development',
 				expires: new Date(expiredAt),
 			})
 
