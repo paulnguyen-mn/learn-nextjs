@@ -29,10 +29,11 @@ const handleLoginResponse: ProxyResCallback = (proxyResponse, req, res) => {
 			// Set the authToken as an HTTP-only cookie.
 			// We'll also set the SameSite attribute to
 			// 'lax' for some additional CSRF protection.
-			const cookies = new Cookies(req, res)
+			const cookies = new Cookies(req, res, { secure: process.env.NODE_ENV !== 'development' })
 			cookies.set('access_token', access_token, {
 				httpOnly: true,
-				sameSite: 'strict',
+				sameSite: 'lax',
+				secure: process.env.NODE_ENV !== 'development',
 				expires: new Date(expiredAt),
 			})
 
