@@ -55,6 +55,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 		return res.status(404).json({ message: 'method not supported' })
 	}
 
+	req.headers['x-forwarded-proto'] = 'https'
+
 	// don't forward cookie
 	req.headers.cookie = ''
 
