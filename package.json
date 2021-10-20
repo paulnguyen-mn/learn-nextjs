@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "cookies": "^0.8.0",
     "http-proxy": "^1.18.1",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@types/cookies": "^0.7.7",
     "@types/http-proxy": "^1.17.7",
     "@types/react": "17.0.20",
     "eslint": "7.32.0",
