@@ -1,27 +1,32 @@
 import { LayoutProps } from '@/models/index'
-import React, { useEffect } from 'react'
+import { Stack } from '@mui/material'
+import { Box } from '@mui/system'
 import Link from 'next/link'
+import React from 'react'
+import { Footer, Header } from '../common'
 
 export function MainLayout({ children }: LayoutProps) {
-	useEffect(() => {
-		console.log('MainLayout mounting')
-
-		return () => console.log('MainLayout unmounting')
-	}, [])
-
 	return (
-		<div>
-			<h1>Main Layout</h1>
+		<Stack minHeight="100vh">
+			<Header />
 
-			<Link href="/">
-				<a>Home</a>
-			</Link>
+			<Box component="main" flexGrow={1}>
+				<Link href="/">
+					<a>Home</a>
+				</Link>
 
-			<Link href="/about">
-				<a>About</a>
-			</Link>
+				<Link href="/blog">
+					<a>Blog</a>
+				</Link>
 
-			<div>{children}</div>
-		</div>
+				<Link href="/works">
+					<a>Works</a>
+				</Link>
+
+				{children}
+			</Box>
+
+			<Footer />
+		</Stack>
 	)
 }
