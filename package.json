@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.1.0",
     "@mui/material": "^5.1.0",
     "axios": "^0.23.0",
+    "clsx": "^1.1.1",
     "cookies": "^0.8.0",
     "http-proxy": "^1.18.1",
     "next": "11.1.2",
