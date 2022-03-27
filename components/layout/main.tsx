@@ -1,4 +1,4 @@
-import { LayoutProps } from '@/models/index'
+import { LayoutProps } from '@/models'
 import { Stack } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'

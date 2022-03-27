@@ -1,4 +1,4 @@
-import { LayoutProps } from '@/models/index'
+import { LayoutProps } from '@/models'
 import * as React from 'react'
 import Link from 'next/link'
 import { Auth } from '../common'

@@ -1,4 +1,4 @@
-import { authApi } from '@/api/index'
+import { authApi } from '@/api'
 import useSWR from 'swr'
 import { PublicConfiguration } from 'swr/dist/types'
 

@@ -1,5 +1,5 @@
-import { authApi } from '@/api/index'
-import { useAuth } from '@/hooks/index'
+import { authApi } from '@/api'
+import { useAuth } from '@/hooks'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 
