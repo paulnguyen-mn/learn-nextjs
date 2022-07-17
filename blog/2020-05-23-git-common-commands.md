@@ -13,6 +13,8 @@ Khi nhắc tới git có khá là nhiều lệnh khác nhau, tuy nhiên trong th
 
 <!-- truncate-->
 
+## Agenda III
+
 ## 0. Nhận task, ví dụ ở đây task có id là 123
 
 - Tí nữa, đọc thấy tạo nhánh có số 123 thì các bạn hiểu ngầm nó chính là `taskId` nhen.
