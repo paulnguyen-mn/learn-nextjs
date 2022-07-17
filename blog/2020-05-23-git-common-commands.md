@@ -15,7 +15,22 @@ Khi nhắc tới git có khá là nhiều lệnh khác nhau, tuy nhiên trong th
 
 ## Agenda III
 
+
 ## 0. Nhận task, ví dụ ở đây task có id là 123
+
+```js[class="line-numbers"]
+function hello() {
+  console.log('Hello World');
+}
+```
+
+```tsx[data-line="1-2,4"]
+function App() {
+  const [title, setTitle] = useState<string>('Learn NextJS');
+
+  return <p>{title}</p>
+}
+```
 
 - Tí nữa, đọc thấy tạo nhánh có số 123 thì các bạn hiểu ngầm nó chính là `taskId` nhen.
 - Ví dụ team mình dev trên nhánh `develop`.
