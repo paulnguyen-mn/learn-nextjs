@@ -17,7 +17,7 @@ export function Seo({ data }: SeoProps) {
 
 	return (
 		<Head>
-			<title>NextJS Tutorials | Easy Frontend</title>
+			<title>{title}</title>
 			<meta name="title" content={title} />
 			<meta name="description" content={description} />
 

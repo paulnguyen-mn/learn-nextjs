@@ -12,6 +12,7 @@ export interface Post {
 	tagList: string[]
 	description: string
 
+	thumbnailUrl?: string
 	slug: string
 	author?: Author
 
