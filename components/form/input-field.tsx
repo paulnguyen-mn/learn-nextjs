@@ -1,5 +1,4 @@
 import { TextField, TextFieldProps } from '@mui/material'
-import { Box } from '@mui/system'
 import React from 'react'
 import { Control, useController } from 'react-hook-form'
 
@@ -37,6 +36,8 @@ export function InputField({
 			onChange={onChange}
 			onBlur={onBlur}
 			inputRef={ref}
+			error={!!error}
+			helperText={error?.message}
 			{...rest}
 		/>
 	)
