@@ -18,6 +18,8 @@ export default class MyDocument extends Document {
 						href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap"
 						rel="stylesheet"
 					></link>
+
+					{(this.props as any).emotionStyleTags}
 				</Head>
 				<body>
 					<Main />
@@ -82,6 +84,7 @@ MyDocument.getInitialProps = async (ctx) => {
 	return {
 		...initialProps,
 		// Styles fragment is rendered after the app and page rendering finish.
-		styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
+		// styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
+		...emotionStyleTags,
 	}
 }
