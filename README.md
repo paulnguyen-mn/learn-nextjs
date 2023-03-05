@@ -49,3 +49,14 @@ Refs:
 - [https://blog.saeloun.com/2021/12/16/hydration](https://blog.saeloun.com/2021/12/16/hydration)
 - [https://thanhle.blog/blog/server-side-rendering-voi-hydration-lang-phi-tai-nguyen-nhu-the-nao](https://thanhle.blog/blog/server-side-rendering-voi-hydration-lang-phi-tai-nguyen-nhu-the-nao)
 - [https://nextjs.org/docs/advanced-features/dynamic-import](https://nextjs.org/docs/advanced-features/dynamic-import)
+
+
+## `06-13` fix issues from video of 06-10 + 06-12
+
+- Can't change tsconfig from `jsx: preserve` to `jsx: react`
+- Can safely remove React import due to [this post](https://nextjs.org/docs/upgrading#react-16-to-17)
+- Can't use named export with ssr: false --> change to use default import instead
+
+
+Refs:
+- [https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)

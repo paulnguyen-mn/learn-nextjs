@@ -4,7 +4,6 @@ import { Box } from '@mui/system'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
 import { ROUTE_LIST } from './routes'
 
 export function HeaderDesktop() {
