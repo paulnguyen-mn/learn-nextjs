@@ -60,3 +60,15 @@ Refs:
 
 Refs:
 - [https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
+
+## `06-14` show login error
+
+- Mock response to return Error instead of success
+- How to extract error body from API response
+  - Throw error response in axios interceptor
+  - Retrieve error message in catch statement
+  - Do whatever you want with the message (show toast, log, report error, ...)
+  - add react-toastify package
+  - toast error message
+
+Ref: [https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript](https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript)
