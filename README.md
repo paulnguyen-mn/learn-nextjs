@@ -27,3 +27,25 @@ key: `user_info`
 
 Unexpected cases handling:
 - What if fetch profile failed?
+
+## `06-12` Text content did not match. Server: "Blog" Client: "Works"
+
+Process:
+1. Server side generate HTML (A) and send to client
+2. Client get HTML (A) to display on UI and download JS in the background
+3. Once JS downloaded, it will be executed. Hydration process take place and generate a new DOM (B). Then it try to match B and A and attach event listener to it.
+
+If A = B --> OK
+If A <> B --> Show error text content did not match
+
+Solutions:
+- Make sure the first render on client side should be the same with server side.
+- Use client side rendering via dynamic feature of NextJS (not SEO friendly)
+
+
+Refs:
+- [https://nextjs.org/docs/messages/react-hydration-error](https://nextjs.org/docs/messages/react-hydration-error)
+- [https://www.joshwcomeau.com/react/the-perils-of-rehydration/](https://www.joshwcomeau.com/react/the-perils-of-rehydration/)
+- [https://blog.saeloun.com/2021/12/16/hydration](https://blog.saeloun.com/2021/12/16/hydration)
+- [https://thanhle.blog/blog/server-side-rendering-voi-hydration-lang-phi-tai-nguyen-nhu-the-nao](https://thanhle.blog/blog/server-side-rendering-voi-hydration-lang-phi-tai-nguyen-nhu-the-nao)
+- [https://nextjs.org/docs/advanced-features/dynamic-import](https://nextjs.org/docs/advanced-features/dynamic-import)
