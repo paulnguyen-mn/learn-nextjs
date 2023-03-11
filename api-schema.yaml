@@ -1,0 +1,628 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0-oas3
+  title: Easy Frontend - Javascript Course
+  description: This is the API documentation for Javascript Course.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+tags:
+  - name: auth
+    description: Authentication APIs
+  - name: works
+    description: Operations about works
+  - name: students
+    description: Operations about students
+  - name: posts
+    description: Operations about posts
+paths:
+  /profile:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get profile of current logged in user
+      description: need to have auth token to call this API
+      tags:
+        - auth
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Profile'
+  /login:
+    post:
+      summary: Login
+      description: No need to register, just use any username (min length 4) and password (min length 6). No validation on server.
+      tags:
+        - auth
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+      requestBody:
+        $ref: '#/components/requestBodies/LoginPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+
+  /students:
+    get:
+      summary: Get all students
+      description: Also support search, sort and filter students
+      tags:
+        - students
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+        - $ref: '#/components/parameters/pagination-page'
+        - $ref: '#/components/parameters/pagination-limit'
+        - $ref: '#/components/parameters/filter-name-like'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListResponseStudent'
+    post:
+      summary: Create a new student
+      description: Create a new student with info attached in the body
+      tags:
+        - students
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+      requestBody:
+        $ref: '#/components/requestBodies/Student'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Student'
+  /students/{studentId}:
+    get:
+      summary: Get student by id
+      description: Specify id of student on the URL to get details of the student.
+      tags:
+        - students
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+        - $ref: '#/components/parameters/path-student-id'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Student'
+    patch:
+      summary: Update student info
+      description: >-
+        Partial update student info that mentioned in the body. Add the changed
+        properties only, no need to add unchanged ones.
+      tags:
+        - students
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+        - $ref: '#/components/parameters/path-student-id'
+      requestBody:
+        $ref: '#/components/requestBodies/Student'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Student'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Remove a student by id
+      description: >-
+        Remove a student by id. 200 means success, no need to check response
+        payload
+      tags:
+        - students
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+        - $ref: '#/components/parameters/path-student-id'
+      responses:
+        '200':
+          description: OK
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /posts:
+    get:
+      summary: Get all posts
+      description: Also support search, sort and filter posts
+      tags:
+        - posts
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+        - $ref: '#/components/parameters/pagination-page'
+        - $ref: '#/components/parameters/pagination-limit'
+        - $ref: '#/components/parameters/filter-title-like'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListResponsePost'
+    post:
+      summary: Create a new post
+      description: Create a new post with info attached in the body
+      tags:
+        - posts
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+      requestBody:
+        $ref: '#/components/requestBodies/Post'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Post'
+  /posts/{postId}:
+    get:
+      summary: Get post by id
+      description: Specify id of post on the URL to get details of the post.
+      tags:
+        - posts
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+        - $ref: '#/components/parameters/path-post-id'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Post'
+    patch:
+      summary: Update post info
+      description: >-
+        Partial update post info that mentioned in the body. Add the changed
+        properties only, no need to add unchanged ones.
+      tags:
+        - posts
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+        - $ref: '#/components/parameters/path-post-id'
+      requestBody:
+        $ref: '#/components/requestBodies/Post'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Remove a post by id
+      description: >-
+        Remove a post by id. 200 means success, no need to check response
+        payload
+      tags:
+        - posts
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+        - $ref: '#/components/parameters/path-post-id'
+      responses:
+        '200':
+          description: OK
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /works:
+    get:
+      summary: Get all works
+      description: Also support search, sort and filter works
+      tags:
+        - works
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+        - $ref: '#/components/parameters/pagination-page'
+        - $ref: '#/components/parameters/pagination-limit'
+        - $ref: '#/components/parameters/filter-title-like'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListResponseWork'
+    post:
+      security:
+        - bearerAuth: []
+
+      summary: Create a new work
+      description: Create a new work with info attached in the body
+      tags:
+        - works
+      parameters:
+        - $ref: '#/components/parameters/header-content-form-data'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddUpdateWorkPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Work'
+  /works/{workId}:
+    get:
+      summary: Get work by id
+      description: Specify id of work on the URL to get details of the work.
+      tags:
+        - works
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+        - $ref: '#/components/parameters/path-work-id'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Work'
+    patch:
+      security:
+        - bearerAuth: []
+      summary: Update work info
+      description: >-
+        Partial update work info that mentioned in the body. Add the changed
+        properties only, no need to add unchanged ones.
+      tags:
+        - works
+      parameters:
+        - $ref: '#/components/parameters/header-content-form-data'
+        - $ref: '#/components/parameters/path-work-id'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddUpdateWorkPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Work'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Remove a work by id
+      description: >-
+        Remove a work by id. 200 means success, no need to check response
+        payload
+      tags:
+        - works
+      parameters:
+        - $ref: '#/components/parameters/header-content-json'
+        - $ref: '#/components/parameters/path-work-id'
+      responses:
+        '200':
+          description: OK
+        '404':
+          $ref: '#/components/responses/NotFound'
+servers:
+  - url: https://js-post-api.herokuapp.com/api
+  - url: http://localhost:3000/api
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    header-content-json:
+      in: header
+      name: Content-Type
+      required: true
+      schema:
+        type: string
+        default: application/json
+    header-content-form-data:
+      in: header
+      name: Content-Type
+      required: true
+      schema:
+        type: string
+        default: multipart/form-data
+    path-student-id:
+      in: path
+      name: studentId
+      required: true
+      description: 'Path: specify which student id'
+      schema:
+        type: string
+        default: d4d201b2-a939-4571-b8e1-bcc9b9b19fb4
+    path-post-id:
+      in: path
+      name: postId
+      required: true
+      description: 'Path: specify which post id'
+      schema:
+        type: string
+        default: sktwi1cgkkuif36dj
+    path-work-id:
+      in: path
+      name: workId
+      required: true
+      description: 'Path: specify which work id'
+      schema:
+        type: string
+        default: lea2aa9l7x3a5we
+    pagination-limit:
+      in: query
+      name: _limit
+      required: false
+      description: 'Pagination: how many items per page'
+      schema:
+        type: integer
+        default: 10
+    pagination-page:
+      in: query
+      name: _page
+      required: true
+      description: 'Pagination: which page you would like to get'
+      schema:
+        type: integer
+        default: 1
+    filter-name-like:
+      in: query
+      name: name_like
+      required: false
+      description: 'Search: search name contains'
+      schema:
+        type: string
+    filter-title-like:
+      in: query
+      name: title_like
+      required: false
+      description: 'Search: search title contains'
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The specified resource was not found. Please double check the URL.
+  requestBodies:
+    Student:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Student'
+      description: Student's information, ignore the ID property
+      required: true
+    Post:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Post'
+      description: Post's information, ignore the ID property
+      required: true
+    Work:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Work'
+      description: Work's information, ignore the ID property
+      required: true
+    LoginPayload:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginPayload'
+      description: Login payload
+      required: true
+  schemas:
+    Student:
+      type: object
+      properties:
+        id:
+          type: string
+          example: d4d201b2-a939-4571-b8e1-bcc9b9b19fb4
+        name:
+          type: string
+          example: Eryn Raynor
+        age:
+          type: number
+          example: '18'
+        gender:
+          type: string
+          description: will be either male or female
+          example: male
+        createdAt:
+          type: number
+          description: timestamp in milliseconds
+          example: 1623512826710
+        updatedAt:
+          type: number
+          description: timestamp in milliseconds
+          example: 1623512826710
+        city:
+          type: string
+          example: hcm
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+          example: sktwi1cgkkuif36dj
+        title:
+          type: string
+          example: Dicta molestiae aut
+        author:
+          type: string
+          example: Charlene Herman
+        description:
+          type: string
+          description: et veritatis dolores magni laborum id praesentium veniam quis
+          example: male
+        createdAt:
+          type: number
+          description: timestamp in milliseconds
+          example: 1623512826710
+        updatedAt:
+          type: number
+          description: timestamp in milliseconds
+          example: 1623512826710
+        imageUrl:
+          type: string
+          example: https://picsum.photos/id/371/1368/400
+    Work:
+      type: object
+      properties:
+        id:
+          type: string
+          description: sktwi1cgkkuif36dj
+        title:
+          type: string
+          description: Dicta molestiae aut
+        shortDescription:
+          type: string
+          description: Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+            sint. Velit officia consequat duis enim velit mollit. Exercitation
+            veniam consequat sunt nostrud amet.
+        fullDescription:
+          type: string
+          example: <p>Ametminimmollitnondeseruntullamcoestsitaliquadolordoametsint.Velitofficiaconsequatduisenimvelitmollit.Exercitationveniamconsequatsuntnostrudamet.</p><div><imgsrc="https://res.cloudinary.com/kimwy/image/upload/v1662798475/learn-nextjs/post-img-1_zjggpj.jpg"alt="postimg1"width="100%"/></div><h1>Heading1</h1><h2>Heading2</h2><p>Ametminimmollitnondeseruntullamcoestsitaliquadolordoametsint.Velitofficiaconsequatduisenimvelitmollit.Exercitationveniamconsequatsuntnostrudamet.</p><div><imgsrc="https://res.cloudinary.com/kimwy/image/upload/v1662798475/learn-nextjs/post-img-2_zjggpj.jpg"alt="postimg1"width="100%"/></div><div><imgsrc="https://res.cloudinary.com/kimwy/image/upload/v1662798475/learn-nextjs/post-img-3_zjggpj.jpg"alt="postimg1"width="100%"/></div>
+        createdAt:
+          type: number
+          description: timestamp in milliseconds
+        updatedAt:
+          type: number
+          description: timestamp in milliseconds
+        thumbnailUrl:
+          type: string
+          description: >-
+            https://res.cloudinary.com/kimwy/image/upload/v1648712410/learn-nextjs/item1_cbidwn.jpg
+        tagList:
+          type: array
+          items:
+            type: string
+            default: ''
+    AddUpdateWorkPayload:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Dicta molestiae aut
+          description: required
+        shortDescription:
+          type: string
+          description: Max length 1000, used to display in list UI
+          example: >-
+            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+            sint. Velit officia consequat duis enim velit mollit. Exercitation
+            veniam consequat sunt nostrud amet.
+        fullDescription:
+          type: string
+          description: Required, used to display in details page, this is a HTML string
+          example: >-
+            <p>Ametminimmollitnondeseruntullamcoestsitaliquadolordoametsint.Velitofficiaconsequatduisenimvelitmollit.Exercitationveniamconsequatsuntnostrudamet.</p><div><imgsrc="https://res.cloudinary.com/kimwy/image/upload/v1662798475/learn-nextjs/post-img-1_zjggpj.jpg"alt="postimg1"width="100%"/></div><h1>Heading1</h1><h2>Heading2</h2><p>Ametminimmollitnondeseruntullamcoestsitaliquadolordoametsint.Velitofficiaconsequatduisenimvelitmollit.Exercitationveniamconsequatsuntnostrudamet.</p><div><imgsrc="https://res.cloudinary.com/kimwy/image/upload/v1662798475/learn-nextjs/post-img-2_zjggpj.jpg"alt="postimg1"width="100%"/></div><div><imgsrc="https://res.cloudinary.com/kimwy/image/upload/v1662798475/learn-nextjs/post-img-3_zjggpj.jpg"alt="postimg1"width="100%"/></div>
+        thumbnail:
+          type: string
+          format: binary
+        tagList:
+          type: array
+          items:
+            type: string
+    Pagination:
+      type: object
+      properties:
+        _page:
+          type: number
+          example: 1
+          description: Current page
+        _limit:
+          type: number
+          example: 10
+          description: How many items per page
+        _total:
+          type: number
+          example: 50
+          description: The total number of items available on server
+    ListResponseStudent:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Student'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    ListResponsePost:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    ListResponseWork:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Work'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    LoginPayload:
+      type: object
+      properties:
+        username:
+          type: string
+          example: 'easy'
+          description: min length 4
+        password:
+          type: string
+          example: 'secret'
+          description: min length 6
+    LoginResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          example: 'JWT_TOKEN_VALUE'
+          description: append this token to Auth header
+        expiredAt:
+          type: number
+          example: 1678513162155
+          description: timestamp in ms that token will be expired
+    Profile:
+      type: object
+      properties:
+        username:
+          type: string
+          example: 'easy'
+          description: 'the correct username that you used to login'
+        email:
+          type: string
+          example: 'test@gmail.com'
+          description: 'random email'
+        city:
+          type: string
+          example: 'HCMC'
+          description: 'random city'
