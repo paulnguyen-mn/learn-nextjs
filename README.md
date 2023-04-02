@@ -79,3 +79,10 @@ Ref: [https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescrip
 - [OpenAPI (Swagger) Editor](https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi)
 - Where to get API Schema file? --> from [my github repo](https://github.com/paulnguyen-mn/learn-nextjs)
 - Demo how to use Swagger directly in VSCode
+
+## `06-16` setup work api
+
+- add work-api.ts
+- add type definition for work api: ListResponse<T>, ListParams
+- call API and log data on component
+
