@@ -72,3 +72,10 @@ Refs:
   - toast error message
 
 Ref: [https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript](https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript)
+
+## `06-15` work list api
+
+- Works API
+- [OpenAPI (Swagger) Editor](https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi)
+- Where to get API Schema file? --> from [my github repo](https://github.com/paulnguyen-mn/learn-nextjs)
+- Demo how to use Swagger directly in VSCode
