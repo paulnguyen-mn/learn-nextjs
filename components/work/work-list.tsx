@@ -3,12 +3,26 @@ import { Box, Divider, Typography } from '@mui/material'
 import Image from 'next/image'
 import { Fragment } from 'react'
 import { WorkCard } from './work-card'
+import { WorkSkeleton } from './work-skeleton'
 
 export interface WorkListProps {
 	workList: Work[]
+	loading?: boolean
 }
 
-export function WorkList({ workList }: WorkListProps) {
+export function WorkList({ workList, loading }: WorkListProps) {
+	if (loading)
+		return (
+			<Box>
+				{Array.from({ length: 3 }).map((_, index) => (
+					<Fragment key={index}>
+						<WorkSkeleton />
+						<Divider sx={{ my: 3 }} />
+					</Fragment>
+				))}
+			</Box>
+		)
+
 	if (workList.length === 0)
 		return (
 			<Box textAlign="center">

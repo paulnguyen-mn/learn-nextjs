@@ -110,3 +110,7 @@ export interface Pagination {
   - No data
   - Has data
 
+## `06-19` Work List UI - Add loading skeleton
+
+- Component: `<Skeleton />` [docs](https://mui.com/material-ui/react-skeleton/)
+- Update `<WorkList />` to show loading status
