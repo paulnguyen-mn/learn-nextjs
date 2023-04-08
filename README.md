@@ -100,3 +100,13 @@ export interface Pagination {
 - update `swr` lib to latest v2.1.2
 - implement useWorkList() hook using useSWR()
 - try to use the hook in component
+
+## `06-18` Work List UI
+
+- Show Work List UI
+- demo decouple interval
+- List State
+  - Loading
+  - No data
+  - Has data
+
