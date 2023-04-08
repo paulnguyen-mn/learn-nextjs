@@ -86,3 +86,17 @@ Ref: [https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescrip
 - add type definition for work api: ListResponse<T>, ListParams
 - call API and log data on component
 
+```ts
+export interface Pagination {
+	_page: number
+	_limit: number
+	_totalRows: number
+}
+```
+
+## `06-17` setup useWorkList hook
+
+- update Pagination type: `_total` to `_totalRows`
+- update `swr` lib to latest v2.1.2
+- implement useWorkList() hook using useSWR()
+- try to use the hook in component
