@@ -170,3 +170,27 @@ PageB: control form submit logic
 - how to set default values for `WorkFilters`
 - how to ignore the first render with empty query?
 - fixed: API resolved without sending a response for /api/works?_page=1&_limit=3, this may result in stalled requests.
+
+## `06-23` Work List UI - Performance Insights
+
+- Goal: will `show page loading` by default (both on server and client)
+- Using tool: Performance Insights
+
+Process:
+1. Server return a HTML `A`
+2. Client render first time `B` - router.`isReady = false`, router.query = undefined
+3. Client render second time - router.`isReady = true`, router.query = data
+
+```tsx
+<Skeleton
+  variant="rectangular"
+  height={40}
+  sx={{
+    display: 'inline-block',
+    width: '100%',
+    mt: 2,
+    mb: 1,
+    verticalAlign: 'middle', // fix layout shift
+  }}
+/>
+```

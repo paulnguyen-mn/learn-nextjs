@@ -3,7 +3,7 @@ import { WorkList } from '@/components/work'
 import { WorkFilters } from '@/components/work/work-filters'
 import { useWorkList } from '@/hooks'
 import { ListParams, WorkFiltersPayload } from '@/models'
-import { Box, Container, Pagination, Stack, Typography } from '@mui/material'
+import { Box, Container, Pagination, Skeleton, Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import React from 'react'
 
@@ -62,11 +62,23 @@ export default function WorksPage(props: WorksPageProps) {
 					</Typography>
 				</Box>
 
-				{router.isReady && (
+				{router.isReady ? (
 					<WorkFilters initialValues={initFiltersPayload} onSubmit={handleFiltersChange} />
+				) : (
+					<Skeleton
+						variant="rectangular"
+						height={40}
+						sx={{
+							display: 'inline-block',
+							width: '100%',
+							mt: 2,
+							mb: 1,
+							verticalAlign: 'middle',
+						}}
+					/>
 				)}
 
-				<WorkList workList={data?.data || []} loading={isLoading} />
+				<WorkList workList={data?.data || []} loading={!router.isReady || isLoading} />
 
 				{totalPages > 0 && (
 					<Stack alignItems="center">
