@@ -157,3 +157,16 @@ PageB: control form submit logic
 |  |__ InputField: search
 |  |__ SelectField: category select
 
+## `06-22` Work List UI - Sync filters to URL
+
+**Current flow**: refetch work list whenever filters `state` changes
+**Current flow**: when filters change --> update `state` (setFilters)
+
+**New flow**: refetch work list whenever `router query` changes
+**New flow**: when filters change --> update `router query`
+
+- remove filters state
+- using [Shallow Routing](https://nextjs.org/docs/routing/shallow-routing)
+- how to set default values for `WorkFilters`
+- how to ignore the first render with empty query?
+- fixed: API resolved without sending a response for /api/works?_page=1&_limit=3, this may result in stalled requests.

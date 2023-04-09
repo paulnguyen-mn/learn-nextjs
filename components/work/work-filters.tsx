@@ -9,21 +9,22 @@ import { InputField } from '../form'
 import { ChangeEvent } from 'react'
 
 export interface WorkFiltersProps {
+	initialValues?: WorkFiltersPayload
 	onSubmit?: (payload: WorkFiltersPayload) => void
 }
 
-export function WorkFilters({ onSubmit }: WorkFiltersProps) {
+export function WorkFilters({ initialValues, onSubmit }: WorkFiltersProps) {
 	const schema = yup.object().shape({})
 
 	const { control, handleSubmit } = useForm<WorkFiltersPayload>({
 		defaultValues: {
 			search: '',
+			...initialValues,
 		},
 		resolver: yupResolver(schema),
 	})
 
 	async function handleLoginSubmit(payload: WorkFiltersPayload) {
-		console.log('form submit', payload)
 		await onSubmit?.(payload)
 	}
 
@@ -43,7 +44,6 @@ export function WorkFilters({ onSubmit }: WorkFiltersProps) {
 					),
 				}}
 				onChange={(event: ChangeEvent<HTMLInputElement>) => {
-					console.log('change', event.target.value)
 					debounceSearchChange()
 				}}
 			/>

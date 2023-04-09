@@ -4,31 +4,53 @@ import { WorkFilters } from '@/components/work/work-filters'
 import { useWorkList } from '@/hooks'
 import { ListParams, WorkFiltersPayload } from '@/models'
 import { Box, Container, Pagination, Stack, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import React from 'react'
 
 export interface WorksPageProps {}
 
 export default function WorksPage(props: WorksPageProps) {
-	const [filters, setFilters] = useState<Partial<ListParams>>({ _page: 1, _limit: 3 })
-	const { data, isLoading } = useWorkList({ params: filters })
+	const router = useRouter()
+	const filters: Partial<ListParams> = {
+		_page: 1,
+		_limit: 3,
+		...router.query,
+	}
+	const initFiltersPayload: WorkFiltersPayload = {
+		search: filters.title_like || '',
+	}
 
+	const { data, isLoading } = useWorkList({ params: filters, enabled: router.isReady })
 	const { _limit, _totalRows, _page } = data?.pagination || {}
 	const totalPages = Boolean(_totalRows) ? Math.ceil(_totalRows / _limit) : 0
 
 	const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-		setFilters((prevFilters) => ({
-			...prevFilters,
-			_page: value,
-		}))
+		router.push(
+			{
+				pathname: router.pathname,
+				query: {
+					...filters,
+					_page: value,
+				},
+			},
+			undefined,
+			{ shallow: true }
+		)
 	}
 
 	function handleFiltersChange(newFilters: WorkFiltersPayload) {
-		console.log('PAGE-LEVEL receive form data', newFilters)
-		setFilters((prevFilters) => ({
-			...prevFilters,
-			_page: 1,
-			title_like: newFilters.search,
-		}))
+		router.push(
+			{
+				pathname: router.pathname,
+				query: {
+					...filters,
+					_page: 1,
+					title_like: newFilters.search,
+				},
+			},
+			undefined,
+			{ shallow: true }
+		)
 	}
 
 	return (
@@ -40,7 +62,10 @@ export default function WorksPage(props: WorksPageProps) {
 					</Typography>
 				</Box>
 
-				<WorkFilters onSubmit={handleFiltersChange} />
+				{router.isReady && (
+					<WorkFilters initialValues={initFiltersPayload} onSubmit={handleFiltersChange} />
+				)}
+
 				<WorkList workList={data?.data || []} loading={isLoading} />
 
 				{totalPages > 0 && (
