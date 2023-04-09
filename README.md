@@ -114,3 +114,25 @@ export interface Pagination {
 
 - Component: `<Skeleton />` [docs](https://mui.com/material-ui/react-skeleton/)
 - Update `<WorkList />` to show loading status
+
+## `06-20` Work List UI - Pagination
+
+- Using Component `<Pagination />` [docs](https://mui.com/material-ui/react-pagination/#controlled-pagination)
+- Integrate our API response with Pagination component
+- Disable Prev / Next when page is at min / max.
+
+```tsx
+export default function PaginationControlled() {
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
+  return (
+    <Stack spacing={2}>
+      <Typography>Page: {page}</Typography>
+      <Pagination count={10} page={page} onChange={handleChange} />
+    </Stack>
+  );
+}
+```
