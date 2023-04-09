@@ -16,7 +16,7 @@ export const config = {
 const proxy = httpProxy.createProxyServer()
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<any>) {
-	return new Promise((resolve) => {
+	return new Promise(() => {
 		// convert cookies to header Authorization
 		const cookies = new Cookies(req, res)
 		const accessToken = cookies.get('access_token')
@@ -34,10 +34,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<any>) 
 			target: process.env.API_URL,
 			changeOrigin: true,
 			selfHandleResponse: false,
-		})
-
-		proxy.once('proxyRes', () => {
-			resolve(true)
 		})
 	})
 }
