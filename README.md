@@ -136,3 +136,24 @@ export default function PaginationControlled() {
   );
 }
 ```
+
+## `06-21` Work List UI - Search
+
+- Add `<WorkFilters />` component (clone from `<LoginForm />`)
+  - take care of all filters: search, categories select, ...
+  - take initial value to set default value for each filter
+- Support `externalOnChange` for `<InputField />`
+- Add debounce on search change
+- Log form submission value
+- Log data received at page-level component
+
+PageA: control form submit logic
+|__ WorkFilters: manage filters form and notify parent via callback if any changes
+|  |__ InputField: search
+|  |__ SelectField: category select
+
+PageB: control form submit logic
+|__ WorkFilters: manage filters form and notify parent via callback if any changes
+|  |__ InputField: search
+|  |__ SelectField: category select
+

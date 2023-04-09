@@ -25,7 +25,7 @@ export function WorkList({ workList, loading }: WorkListProps) {
 
 	if (workList.length === 0)
 		return (
-			<Box textAlign="center">
+			<Box textAlign="center" mt={8}>
 				<Image
 					src={
 						'https://res.cloudinary.com/kimwy/image/upload/v1680947456/learn-nextjs/no-data_liu3mu.svg'

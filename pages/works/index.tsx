@@ -1,7 +1,8 @@
 import { MainLayout } from '@/components/layout'
 import { WorkList } from '@/components/work'
+import { WorkFilters } from '@/components/work/work-filters'
 import { useWorkList } from '@/hooks'
-import { ListParams } from '@/models'
+import { ListParams, WorkFiltersPayload } from '@/models'
 import { Box, Container, Pagination, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 
@@ -21,6 +22,15 @@ export default function WorksPage(props: WorksPageProps) {
 		}))
 	}
 
+	function handleFiltersChange(newFilters: WorkFiltersPayload) {
+		console.log('PAGE-LEVEL receive form data', newFilters)
+		setFilters((prevFilters) => ({
+			...prevFilters,
+			_page: 1,
+			title_like: newFilters.search,
+		}))
+	}
+
 	return (
 		<Box>
 			<Container>
@@ -30,6 +40,7 @@ export default function WorksPage(props: WorksPageProps) {
 					</Typography>
 				</Box>
 
+				<WorkFilters onSubmit={handleFiltersChange} />
 				<WorkList workList={data?.data || []} loading={isLoading} />
 
 				{totalPages > 0 && (
