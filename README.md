@@ -206,13 +206,14 @@ A Form Control includes 2 main parts:
 
 - Add Autocomplete UI control
 - Show it on UI to see how it looks like
-
+- Add new component: `AutocompleteField` (cloned from `InputField`)
 
 ## `06-25` - AutocompleteField P2
 
 - Add type definition for AutocompleteField
 - Add new key to WorkFiltersPayload: tagList_like
-- Add new component: `AutocompleteField` (cloned from `InputField`)
+- Add generic type for InputField
+- Add generic type for AutocompleteField
 
 ## `06-26` - AutocompleteField P3
 

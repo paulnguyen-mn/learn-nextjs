@@ -48,7 +48,15 @@ export function WorkFilters({ initialValues, onSubmit }: WorkFiltersProps) {
 				}}
 			/>
 
-			<AutocompleteField name="tagList_search" placeholder="filter by category" control={control} />
+			<AutocompleteField
+				name="selectedTagList"
+				label="Filter by category"
+				placeholder="Categories"
+				control={control}
+				options={[{ title: 'easy', key: 'ez' }]}
+				getOptionLabel={(option) => option.key}
+				isOptionEqualToValue={(option, value) => option.key === value.key}
+			/>
 		</Box>
 	)
 }
