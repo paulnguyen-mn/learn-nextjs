@@ -5,7 +5,7 @@ import { InputAdornment, debounce } from '@mui/material'
 import { Box } from '@mui/system'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { InputField } from '../form'
+import { AutocompleteField, InputField } from '../form'
 import { ChangeEvent } from 'react'
 
 export interface WorkFiltersProps {
@@ -47,6 +47,8 @@ export function WorkFilters({ initialValues, onSubmit }: WorkFiltersProps) {
 					debounceSearchChange()
 				}}
 			/>
+
+			<AutocompleteField name="tagList_search" placeholder="filter by category" control={control} />
 		</Box>
 	)
 }

@@ -194,3 +194,30 @@ Process:
   }}
 />
 ```
+
+## `06-24` - AutocompleteField P1
+
+A Form Control includes 2 main parts:
+- UI control
+- Bind form state to UI control (react-hook-form)
+--> integrate with form logic
+
+------------
+
+- Add Autocomplete UI control
+- Show it on UI to see how it looks like
+
+
+## `06-25` - AutocompleteField P2
+
+- Add type definition for AutocompleteField
+- Add new key to WorkFiltersPayload: tagList_like
+- Add new component: `AutocompleteField` (cloned from `InputField`)
+
+## `06-26` - AutocompleteField P3
+
+- Integrate with react hook form control
+
+## `06-27` - AutocompleteField P4
+
+- Populate data to AutocompleteField
