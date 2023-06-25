@@ -19,13 +19,15 @@ export function WorkFilters({ initialValues, onSubmit }: WorkFiltersProps) {
 	const { control, handleSubmit } = useForm<WorkFiltersPayload>({
 		defaultValues: {
 			search: '',
+			selectedTagList: [],
 			...initialValues,
 		},
 		resolver: yupResolver(schema),
 	})
 
 	async function handleLoginSubmit(payload: WorkFiltersPayload) {
-		await onSubmit?.(payload)
+		// await onSubmit?.(payload)
+		console.log('submit', payload)
 	}
 
 	const debounceSearchChange = debounce(handleSubmit(handleLoginSubmit), 350)
@@ -53,9 +55,13 @@ export function WorkFilters({ initialValues, onSubmit }: WorkFiltersProps) {
 				label="Filter by category"
 				placeholder="Categories"
 				control={control}
-				options={[{ title: 'easy', key: 'ez' }]}
+				options={[
+					{ title: 'easy', key: 'ez' },
+					{ title: 'frontend', key: 'fr' },
+				]}
 				getOptionLabel={(option) => option.key}
 				isOptionEqualToValue={(option, value) => option.key === value.key}
+				onChange={() => debounceSearchChange()}
 			/>
 		</Box>
 	)

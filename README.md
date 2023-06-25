@@ -218,7 +218,10 @@ A Form Control includes 2 main parts:
 ## `06-26` - AutocompleteField P3
 
 - Integrate with react hook form control
+- Binding form state: onChange, onBlur, ref, value, error
 
-## `06-27` - AutocompleteField P4
+## `06-27` - Populate data tag list to AutocompleteField
 
+- useTagList hook
+- tag list api
 - Populate data to AutocompleteField
