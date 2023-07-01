@@ -18,6 +18,7 @@ export default function WorksPage(props: WorksPageProps) {
 	}
 	const initFiltersPayload: WorkFiltersPayload = {
 		search: filters.title_like || '',
+		selectedTagList: filters.tagList_like?.split('|') || [],
 	}
 
 	const { data, isLoading } = useWorkList({ params: filters, enabled: router.isReady })
@@ -46,6 +47,7 @@ export default function WorksPage(props: WorksPageProps) {
 					...filters,
 					_page: 1,
 					title_like: newFilters.search,
+					tagList_like: newFilters.tagList_like,
 				},
 			},
 			undefined,

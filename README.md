@@ -227,3 +227,18 @@ A Form Control includes 2 main parts:
 
 - new hook file: hooks/use-tag-list.ts
 - Populate data to AutocompleteField
+
+## `06-28` - Filter work list by multiple tags selection
+
+- filter works by tags (either tag1 or tag2 or tag3): 
+  GET /api/works?_page=1&_limit=10&`tagList_like=tag1|tag2|tag3`
+- transform form data into api payload
+
+```ts
+const formData = { search: '', selectedTagList: ['Design', 'Dashboard'] }
+
+// 1. turn selectedTagList into tagList_like (array to string using join())
+// 2. remove unused attr selectedTagList
+const apiPayload = { search: '', tagList_like: 'Design|Dashboard' }
+```
+- set initial value for auto complete field 
