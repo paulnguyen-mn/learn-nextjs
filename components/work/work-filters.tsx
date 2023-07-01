@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { AutocompleteField, InputField } from '../form'
 import { ChangeEvent } from 'react'
+import { useTagList } from '@/hooks'
 
 export interface WorkFiltersProps {
 	initialValues?: WorkFiltersPayload
@@ -15,6 +16,9 @@ export interface WorkFiltersProps {
 
 export function WorkFilters({ initialValues, onSubmit }: WorkFiltersProps) {
 	const schema = yup.object().shape({})
+
+	const { data } = useTagList({})
+	const tagList = data?.data || []
 
 	const { control, handleSubmit } = useForm<WorkFiltersPayload>({
 		defaultValues: {
@@ -55,12 +59,9 @@ export function WorkFilters({ initialValues, onSubmit }: WorkFiltersProps) {
 				label="Filter by category"
 				placeholder="Categories"
 				control={control}
-				options={[
-					{ title: 'easy', key: 'ez' },
-					{ title: 'frontend', key: 'fr' },
-				]}
-				getOptionLabel={(option) => option.key}
-				isOptionEqualToValue={(option, value) => option.key === value.key}
+				options={tagList}
+				getOptionLabel={(option) => option}
+				isOptionEqualToValue={(option, value) => option === value}
 				onChange={() => debounceSearchChange()}
 			/>
 		</Box>

@@ -222,6 +222,8 @@ A Form Control includes 2 main parts:
 
 ## `06-27` - Populate data tag list to AutocompleteField
 
-- useTagList hook
-- tag list api
+- add new api file: api-client/tag-api.ts
+  GET: /api/tags?_page=1&_limit=30
+
+- new hook file: hooks/use-tag-list.ts
 - Populate data to AutocompleteField
