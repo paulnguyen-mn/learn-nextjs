@@ -266,3 +266,25 @@ Approach:
 - Pass worklist to <WorkList />
 - Add simple load more
 
+## `06-31` - Infinity scroll - auto load more
+
+- `yarn add react-intersection-observer`
+
+```tsx
+import React from 'react';
+import { useInView } from 'react-intersection-observer';
+
+const Component = () => {
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+
+  return (
+    <div ref={ref}>
+      <h2>{`Header inside viewport ${inView}.`}</h2>
+    </div>
+  );
+};
+```
+

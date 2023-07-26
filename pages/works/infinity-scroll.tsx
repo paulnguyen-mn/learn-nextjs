@@ -3,8 +3,9 @@ import { WorkList } from '@/components/work'
 import { WorkFilters } from '@/components/work/work-filters'
 import { useWorkListInfinity } from '@/hooks/use-work-list-infinity'
 import { ListParams, ListResponse, Work, WorkFiltersPayload } from '@/models'
-import { Box, Button, Container, Skeleton, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Container, Skeleton, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
+import { useInView } from 'react-intersection-observer'
 
 export interface WorksPageProps {}
 
@@ -18,14 +19,10 @@ export default function WorksPage(props: WorksPageProps) {
 		selectedTagList: filters.tagList_like?.split('|') || [],
 	}
 
-	const { data, isLoading, isValidating, size, setSize } = useWorkListInfinity({
+	const { data, isLoading, isValidating, setSize } = useWorkListInfinity({
 		params: filters,
 		enabled: router.isReady,
 	})
-	console.log({ data, isLoading, isValidating, size })
-	// data: [ responsePage1, responsePage2 ]
-	// responsePage1: { data, pagination }
-	// workList = [...data1, ...data2, ...dataN]
 	const workList: Array<Work> =
 		data?.reduce((result: Array<Work>, currentPage: ListResponse<Work>) => {
 			result.push(...currentPage.data)
@@ -33,8 +30,15 @@ export default function WorksPage(props: WorksPageProps) {
 			return result
 		}, []) || []
 
-	// const { _limit, _totalRows, _page } = data?.pagination || {}
-	// const totalPages = Boolean(_totalRows) ? Math.ceil(_totalRows / _limit) : 0
+	const totalRows = data?.[0]?.pagination?._totalRows || 0
+	const showLoadMore = totalRows > workList.length
+	const loadingMore = isValidating && workList.length > 0
+
+	const { ref } = useInView({
+		onChange(inView) {
+			if (inView) setSize((x) => x + 1)
+		},
+	})
 
 	function handleFiltersChange(newFilters: WorkFiltersPayload) {
 		router.push(
@@ -78,9 +82,16 @@ export default function WorksPage(props: WorksPageProps) {
 
 				<WorkList workList={workList} loading={!router.isReady || isLoading} />
 
-				<Button variant="contained" onClick={() => setSize((x) => x + 1)}>
-					Load More
-				</Button>
+				{showLoadMore && (
+					<Button
+						ref={ref}
+						variant="contained"
+						onClick={() => setSize((x) => x + 1)}
+						disabled={loadingMore}
+					>
+						Load More {loadingMore && <CircularProgress size={24} />}
+					</Button>
+				)}
 			</Container>
 		</Box>
 	)
