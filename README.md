@@ -242,3 +242,19 @@ const formData = { search: '', selectedTagList: ['Design', 'Dashboard'] }
 const apiPayload = { search: '', tagList_like: 'Design|Dashboard' }
 ```
 - set initial value for auto complete field 
+
+
+## `06-29` - Infinity scroll - useWorkListInfinity() hook
+
+- Demo idea via behance.net
+- Clone works/index.tsx page into works/infinity-scroll.tsx
+- Remove pagination approach / change to new hook
+- Implement new hook useWorkListInfinity() using useSWRInfinite() from SWR
+- Add new lib: qs to parse query
+
+Approach:
+- Clone page
+- Change data source by new hook
+- Convert new data to workList
+- Pass worklist to <WorkList />
+- Handle load more
