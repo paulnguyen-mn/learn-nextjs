@@ -12,6 +12,8 @@ export interface UseWorkListInfinityProps {
 export function useWorkListInfinity({ params, options, enabled = true }: UseWorkListInfinityProps) {
 	const swrResponse = useSWRInfinite<ListResponse<Work>>(
 		(index: number, previousPageData: ListResponse<Work>) => {
+			if (!enabled) return null
+
 			// index starts at 0
 			const page = index + 1
 			const query: Partial<ListParams> = {
@@ -31,6 +33,7 @@ export function useWorkListInfinity({ params, options, enabled = true }: UseWork
 		},
 		(url: string) => axiosClient.get(url),
 		{
+			revalidateFirstPage: false,
 			...options,
 		}
 	)

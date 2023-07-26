@@ -258,3 +258,11 @@ Approach:
 - Convert new data to workList
 - Pass worklist to <WorkList />
 - Handle load more
+
+## `06-30` - Infinity scroll - binding work list data
+
+- handle `enabled` params in the hook
+- Convert new data to workList
+- Pass worklist to <WorkList />
+- Add simple load more
+
