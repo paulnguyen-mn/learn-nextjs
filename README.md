@@ -304,3 +304,9 @@ const Component = () => {
 
 - Setup works/[workId].tsx - AddEditWorkPage
 - Detect Add or Edit mode
+
+### `07-02` - Call details API if edit mode
+
+- Add new hook: hooks/use-work-details.ts
+- Integrate the new hook into AddEditWorkPage, make sure it only calls in edit mode
+

@@ -1,4 +1,5 @@
 import { MainLayout } from '@/components/layout'
+import { useWorkDetails } from '@/hooks'
 import { Box, Container, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 
@@ -9,7 +10,12 @@ export default function AddEditWorkPage(props: AddEditWorkPageProps) {
 	const { workId } = router.query
 	const isAddMode = workId === 'add'
 
-	console.log({ workId, isAddMode, ready: router.isReady })
+	const { data, isLoading } = useWorkDetails({
+		workId: (workId as string) || '',
+		enabled: router.isReady && !isAddMode,
+	})
+
+	console.log({ workId, isAddMode, ready: router.isReady, data, isLoading })
 
 	return (
 		<Box>
