@@ -317,3 +317,8 @@ const Component = () => {
 - Add title control: <InputField />
 - Add shortDescription control: <InputField multiline/>
 
+### `07-04` - WorkForm - tagList
+
+- Add tagList control: <AutocompleteField />
+- Validation array of string
+
