@@ -310,3 +310,10 @@ const Component = () => {
 - Add new hook: hooks/use-work-details.ts
 - Integrate the new hook into AddEditWorkPage, make sure it only calls in edit mode
 
+### `07-03` - Setup WorkForm
+
+- Add new form: components/work/work-form.tsx
+- Show form on Page
+- Add title control: <InputField />
+- Add shortDescription control: <InputField multiline/>
+
