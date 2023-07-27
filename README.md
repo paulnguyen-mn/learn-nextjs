@@ -1,17 +1,23 @@
 # Learn NextJS - Notes
 
-## `06-09` Show hide menu based on login status
+## Section 6: Work List Page
+
+- Render work list via Pagination / Infinity Scroll
+- Search by title
+- Filter by category
+
+### `06-09` Show hide menu based on login status
 
 1. Config route list to specify which menu requires login
 2. Render route list based on login status
 3. Integrate with login and test
 
-## `06-10` add type definition for useAuth
+### `06-10` add type definition for useAuth
 
 - Target to have type suggestion when using profile from useAuth()
 - TIP: Organize Imports (Option + Shift + O)
 
-## `06-11` save logged in user info
+### `06-11` save logged in user info
 
 **Current flow:**
 1. On init: useAuth with default data = `undefined`
@@ -28,7 +34,7 @@ key: `user_info`
 Unexpected cases handling:
 - What if fetch profile failed?
 
-## `06-12` Text content did not match. Server: "Blog" Client: "Works"
+### `06-12` Text content did not match. Server: "Blog" Client: "Works"
 
 Process:
 1. Server side generate HTML (A) and send to client
@@ -51,7 +57,7 @@ Refs:
 - [https://nextjs.org/docs/advanced-features/dynamic-import](https://nextjs.org/docs/advanced-features/dynamic-import)
 
 
-## `06-13` fix issues from video of 06-10 + 06-12
+### `06-13` fix issues from video of 06-10 + 06-12
 
 - Can't change tsconfig from `jsx: preserve` to `jsx: react`
 - Can safely remove React import due to [this post](https://nextjs.org/docs/upgrading#react-16-to-17)
@@ -61,7 +67,7 @@ Refs:
 Refs:
 - [https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
 
-## `06-14` show login error
+### `06-14` show login error
 
 - Mock response to return Error instead of success
 - How to extract error body from API response
@@ -73,14 +79,14 @@ Refs:
 
 Ref: [https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript](https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript)
 
-## `06-15` work list api
+### `06-15` work list api
 
 - Works API
 - [OpenAPI (Swagger) Editor](https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi)
 - Where to get API Schema file? --> from [my github repo](https://github.com/paulnguyen-mn/learn-nextjs)
 - Demo how to use Swagger directly in VSCode
 
-## `06-16` setup work api
+### `06-16` setup work api
 
 - add work-api.ts
 - add type definition for work api: ListResponse<T>, ListParams
@@ -94,14 +100,14 @@ export interface Pagination {
 }
 ```
 
-## `06-17` setup useWorkList hook
+### `06-17` setup useWorkList hook
 
 - update Pagination type: `_total` to `_totalRows`
 - update `swr` lib to latest v2.1.2
 - implement useWorkList() hook using useSWR()
 - try to use the hook in component
 
-## `06-18` Work List UI
+### `06-18` Work List UI
 
 - Show Work List UI
 - demo decouple interval
@@ -110,12 +116,12 @@ export interface Pagination {
   - No data
   - Has data
 
-## `06-19` Work List UI - Add loading skeleton
+### `06-19` Work List UI - Add loading skeleton
 
 - Component: `<Skeleton />` [docs](https://mui.com/material-ui/react-skeleton/)
 - Update `<WorkList />` to show loading status
 
-## `06-20` Work List UI - Pagination
+### `06-20` Work List UI - Pagination
 
 - Using Component `<Pagination />` [docs](https://mui.com/material-ui/react-pagination/#controlled-pagination)
 - Integrate our API response with Pagination component
@@ -137,7 +143,7 @@ export default function PaginationControlled() {
 }
 ```
 
-## `06-21` Work List UI - Search
+### `06-21` Work List UI - Search
 
 - Add `<WorkFilters />` component (clone from `<LoginForm />`)
   - take care of all filters: search, categories select, ...
@@ -157,7 +163,7 @@ PageB: control form submit logic
 |  |__ InputField: search
 |  |__ SelectField: category select
 
-## `06-22` Work List UI - Sync filters to URL
+### `06-22` Work List UI - Sync filters to URL
 
 **Current flow**: refetch work list whenever filters `state` changes
 **Current flow**: when filters change --> update `state` (setFilters)
@@ -171,7 +177,7 @@ PageB: control form submit logic
 - how to ignore the first render with empty query?
 - fixed: API resolved without sending a response for /api/works?_page=1&_limit=3, this may result in stalled requests.
 
-## `06-23` Work List UI - Performance Insights
+### `06-23` Work List UI - Performance Insights
 
 - Goal: will `show page loading` by default (both on server and client)
 - Using tool: Performance Insights
@@ -195,7 +201,7 @@ Process:
 />
 ```
 
-## `06-24` - AutocompleteField P1
+### `06-24` - AutocompleteField P1
 
 A Form Control includes 2 main parts:
 - UI control
@@ -208,19 +214,19 @@ A Form Control includes 2 main parts:
 - Show it on UI to see how it looks like
 - Add new component: `AutocompleteField` (cloned from `InputField`)
 
-## `06-25` - AutocompleteField P2
+### `06-25` - AutocompleteField P2
 
 - Add type definition for AutocompleteField
 - Add new key to WorkFiltersPayload: tagList_like
 - Add generic type for InputField
 - Add generic type for AutocompleteField
 
-## `06-26` - AutocompleteField P3
+### `06-26` - AutocompleteField P3
 
 - Integrate with react hook form control
 - Binding form state: onChange, onBlur, ref, value, error
 
-## `06-27` - Populate data tag list to AutocompleteField
+### `06-27` - Populate data tag list to AutocompleteField
 
 - add new api file: api-client/tag-api.ts
   GET: /api/tags?_page=1&_limit=30
@@ -228,7 +234,7 @@ A Form Control includes 2 main parts:
 - new hook file: hooks/use-tag-list.ts
 - Populate data to AutocompleteField
 
-## `06-28` - Filter work list by multiple tags selection
+### `06-28` - Filter work list by multiple tags selection
 
 - filter works by tags (either tag1 or tag2 or tag3): 
   GET /api/works?_page=1&_limit=10&`tagList_like=tag1|tag2|tag3`
@@ -244,7 +250,7 @@ const apiPayload = { search: '', tagList_like: 'Design|Dashboard' }
 - set initial value for auto complete field 
 
 
-## `06-29` - Infinity scroll - useWorkListInfinity() hook
+### `06-29` - Infinity scroll - useWorkListInfinity() hook
 
 - Demo idea via behance.net
 - Clone works/index.tsx page into works/infinity-scroll.tsx
@@ -259,14 +265,14 @@ Approach:
 - Pass worklist to <WorkList />
 - Handle load more
 
-## `06-30` - Infinity scroll - binding work list data
+### `06-30` - Infinity scroll - binding work list data
 
 - handle `enabled` params in the hook
 - Convert new data to workList
 - Pass worklist to <WorkList />
 - Add simple load more
 
-## `06-31` - Infinity scroll - auto load more
+### `06-31` - Infinity scroll - auto load more
 
 - `yarn add react-intersection-observer`
 
@@ -288,3 +294,13 @@ const Component = () => {
 };
 ```
 
+## Section 7: Add Edit Work Form
+
+- Setup Page / Form
+- Rich Text Editor control
+- Form Validation
+
+### `07-01` - Intro and setup page
+
+- Setup works/[workId].tsx - AddEditWorkPage
+- Detect Add or Edit mode
