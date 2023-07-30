@@ -11,6 +11,10 @@ export interface Work {
 
 export interface WorkPayload extends Work {
 	// ...
+	thumbnail: null | {
+		file: File
+		previewUrl: string
+	}
 }
 
 export interface WorkFiltersPayload {

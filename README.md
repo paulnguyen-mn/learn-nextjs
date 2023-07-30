@@ -322,3 +322,13 @@ const Component = () => {
 - Add tagList control: <AutocompleteField />
 - Validation array of string
 
+### `07-05` - WorkForm - Setup PhotoField
+
+- New form control: `<PhotoField />`
+  - UI: preview image + upload file (hidden) + error message
+  - Data: `{ file: File, previewUrl: string }`
+  - Logic:
+    - init show previewUrl || default placeholder
+    - onChange: update data
+- Setup PhotoField and handle onChange
+
