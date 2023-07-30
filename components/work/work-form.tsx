@@ -17,6 +17,24 @@ export function WorkForm({ initialValues, onSubmit }: WorkFormProps) {
 		title: yup.string().required('Please enter work title'),
 		shortDescription: yup.string().required('Please enter work description'),
 		tagList: yup.array().of(yup.string()).min(1, 'Please select at least one category'),
+		thumbnail: yup
+			.object()
+			.nullable()
+			.test('test-required', 'Please select an image.', (value) => {
+				// required when add
+				// optional when edit
+				if (Boolean(initialValues?.id) || Boolean(value?.file)) return true
+
+				// return context.createError({ message: 'Please select an image.' })
+				return false
+			})
+			.test('test-size', 'Maximum size exceeded. Please select another file.', (value) => {
+				const fileSize = value?.file?.['size'] || 0
+				const MB_TO_BYTES = 1024 * 1024
+				const MAX_SIZE = 3 * MB_TO_BYTES // 3MB
+
+				return fileSize <= MAX_SIZE
+			}),
 	})
 
 	const { data } = useTagList({})
@@ -27,7 +45,12 @@ export function WorkForm({ initialValues, onSubmit }: WorkFormProps) {
 			title: '',
 			shortDescription: '',
 			tagList: [],
-			thumbnail: null,
+			thumbnail: initialValues?.id
+				? {
+						file: null,
+						previewUrl: initialValues?.thumbnailUrl,
+				  }
+				: null,
 			...initialValues,
 		},
 		resolver: yupResolver(schema),

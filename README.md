@@ -332,3 +332,10 @@ const Component = () => {
     - onChange: update data
 - Setup PhotoField and handle onChange
 
+### `07-06` - WorkForm - Validate thumbnail control
+
+- Custom validation logic via yup.test()
+- 1MB = 1024 * 1024 Bytes (MB -1024-> KB -1024-> BYTES)
+- Limit upload file less than 3MB
+- Conditional validation, required when add, optional when edit
+
