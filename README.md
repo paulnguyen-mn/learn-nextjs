@@ -353,6 +353,52 @@ yarn add react-quill
 ```
 
 ### `07-08` - EditorField - modules & formats
+
+- [React Quill Modules](https://quilljs.com/docs/modules/toolbar/)
+  - Toolbar: show / hide controls + custom handlers 
+  - Keyboard: key binding in a context
+  - History: undo, redo
+  - Clipboard: copy / paste / cut between quill and other apps
+  - Syntax: highlight for code block
+
+- [React Quill Formats](https://quilljs.com/docs/formats/)
+  - Default to enable all
+  - Define a list of enable some only
+  - Allow to add custom format
+
+```js
+const modules = {
+  toolbar: {
+    container: [
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline','strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      ['link', 'image'],
+      ['clean']
+    ],
+    handlers: {
+      image: imageHandler,
+    }
+  },
+}
+
+
+const formats = [
+  'header',
+  'bold', 
+  'italic', 
+  'underline', 
+  'strike', 
+  'blockquote',
+  'list', 
+  'bullet', 
+  'indent',
+  'link', 
+  'image',
+]
+```
+
+
 ### `07-09` - EditorField - value & onChange
 ### `07-10` - EditorField - forwardedRef
 ### `07-11` - EditorField - cloudinary upload widget
