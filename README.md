@@ -339,3 +339,21 @@ const Component = () => {
 - Limit upload file less than 3MB
 - Conditional validation, required when add, optional when edit
 
+
+### `07-07` - EditorField - install React Quill
+
+- Build failed bugfix: **photo-field.tsx** value?.previewUrl --> value?.['previewUrl']
+- [React Quill Github](https://github.com/zenoamaro/react-quill)
+- Add new form control: `EditorField`
+- Fix issue that React Quill not able to render on server side via dynamic ssr: false
+
+
+```sh
+yarn add react-quill
+```
+
+### `07-08` - EditorField - modules & formats
+### `07-09` - EditorField - value & onChange
+### `07-10` - EditorField - forwardedRef
+### `07-11` - EditorField - cloudinary upload widget
+### `07-12` - EditorField - submission & validation

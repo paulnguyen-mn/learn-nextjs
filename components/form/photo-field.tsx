@@ -34,7 +34,7 @@ export function PhotoField<T extends FieldValues>({ name, control, label }: Phot
 	// value data type
 	// - null
 	// - { file: File, previewUrl: string }
-	const previewUrl = value?.previewUrl || DEFAULT_THUMBNAIL_URL
+	const previewUrl = value?.['previewUrl'] || DEFAULT_THUMBNAIL_URL
 	const inputId = `photo-field-${name}`
 
 	return (
