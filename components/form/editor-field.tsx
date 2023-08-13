@@ -59,7 +59,13 @@ export function EditorField<T extends FieldValues>({ name, control, label }: Edi
 
 			<Box>
 				{/* editor - react quill */}
-				<ReactQuill theme="snow" modules={modules} formats={formats} />
+				<ReactQuill
+					theme="snow"
+					modules={modules}
+					formats={formats}
+					value={value}
+					onChange={(content) => onChange(content)}
+				/>
 			</Box>
 
 			<FormHelperText error={!!error}>{error?.message}</FormHelperText>

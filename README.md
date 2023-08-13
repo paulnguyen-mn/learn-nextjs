@@ -400,6 +400,23 @@ const formats = [
 
 
 ### `07-09` - EditorField - value & onChange
+
+Deltas or HTML?
+
+**Option 1**: use HTML
+- Init with HTML string from fullDescription
+- onChange --> update HTML string
+- render: use HTML string to render on UI
+
+**Option 2**: use Deltas
+- Init with Deltas object
+- onChange --> get full deltas object and update to form state
+- render: need to convert from Deltas to HTML first
+
+--> prefer to go with `option 1` if no special reason to use `Deltas`.
+
+Read more about [React Quill Props](https://github.com/zenoamaro/react-quill#props)
+
 ### `07-10` - EditorField - forwardedRef
 ### `07-11` - EditorField - cloudinary upload widget
 ### `07-12` - EditorField - submission & validation
