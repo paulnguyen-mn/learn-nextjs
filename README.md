@@ -429,4 +429,13 @@ Read more about [React Quill Props](https://github.com/zenoamaro/react-quill#pro
 
 - [Cloudinary Upload Widget](https://cloudinary.com/documentation/upload_widget)
 
+1. Setup cloudinary - upload preset
+2. Import widget script from src: https://widget.cloudinary.com/v2.0/global/all.js
+3. Setup upload widget and save to ref
+4. When user click image --> open the widget from ref
+5. Handle image function: must be a static function, otherwise it may have error
+6. Get current selection: `quill.getEditorSelection()`
+7. Insert image: https://quilljs.com/docs/api/#insertembed
+
+
 ### `07-12` - EditorField - submission & validation

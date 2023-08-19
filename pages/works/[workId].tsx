@@ -3,6 +3,7 @@ import { WorkForm } from '@/components/work'
 import { useWorkDetails } from '@/hooks'
 import { Box, Container, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
+import Script from 'next/script'
 
 export interface AddEditWorkPageProps {}
 
@@ -39,6 +40,8 @@ export default function AddEditWorkPage(props: AddEditWorkPageProps) {
 					)}
 				</Box>
 			</Container>
+
+			<Script src="https://widget.cloudinary.com/v2.0/global/all.js" strategy="afterInteractive" />
 		</Box>
 	)
 }
