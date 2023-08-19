@@ -418,5 +418,15 @@ Deltas or HTML?
 Read more about [React Quill Props](https://github.com/zenoamaro/react-quill#props)
 
 ### `07-10` - EditorField - forwardedRef
+
+- why we need to get editorRef? --> to get current selection index to insert image
+- can we just use ref directly? --> let's debug to see
+
+`getSelection()` : Returns the current selection range, or null if the editor is unfocused.
+
+
 ### `07-11` - EditorField - cloudinary upload widget
+
+- [Cloudinary Upload Widget](https://cloudinary.com/documentation/upload_widget)
+
 ### `07-12` - EditorField - submission & validation
