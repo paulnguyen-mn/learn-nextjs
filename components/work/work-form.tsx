@@ -9,7 +9,7 @@ import { AutocompleteField, EditorField, InputField, PhotoField } from '../form'
 
 export interface WorkFormProps {
 	initialValues?: Partial<WorkPayload>
-	onSubmit?: (payload: Partial<WorkPayload>) => void
+	onSubmit?: (payload: FormData) => void
 }
 
 export function WorkForm({ initialValues, onSubmit }: WorkFormProps) {
@@ -57,12 +57,45 @@ export function WorkForm({ initialValues, onSubmit }: WorkFormProps) {
 		resolver: yupResolver(schema),
 	})
 
-	async function handleLoginSubmit(payload: Partial<WorkPayload>) {
-		if (!payload) return
+	async function handleLoginSubmit(formValues: Partial<WorkPayload>) {
+		if (!formValues) return
 
-		console.log('form submit', payload)
+		const payload = new FormData()
 
-		// await onSubmit?.(payload)
+		// id
+		if (formValues.id) {
+			payload.set('id', formValues.id)
+		}
+
+		// thumbnail
+		if (formValues.thumbnail?.file) {
+			payload.set('thumbnail', formValues.thumbnail?.file)
+		}
+
+		// taglist
+		formValues.tagList?.forEach((tag) => {
+			payload.append('tagList', tag)
+		})
+
+		// title, short description, full description
+		const keyList: Array<keyof Partial<WorkPayload>> = [
+			'title',
+			'shortDescription',
+			'fullDescription',
+		]
+		keyList.forEach((name) => {
+			if (initialValues?.[name] !== formValues[name]) {
+				payload.set(name, formValues[name] as string)
+			}
+		})
+
+		console.log('form submit', formValues)
+
+		payload.forEach((value, key) => {
+			console.log(key, value)
+		})
+
+		await onSubmit?.(payload)
 	}
 
 	return (

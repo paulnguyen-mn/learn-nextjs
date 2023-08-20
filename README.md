@@ -438,4 +438,12 @@ Read more about [React Quill Props](https://github.com/zenoamaro/react-quill#pro
 7. Insert image: https://quilljs.com/docs/api/#insertembed
 
 
-### `07-12` - EditorField - submission & validation
+### `07-12` - Form - handle update submit
+
+- Intro to update work API
+- API `work-api`: Implement work add / update API
+- hook `use-work-details`: Add update function useWorkDetails() hook
+- Form level `work-form`: Transform form values --> payload to submit API
+- Page level `[workId]`: handle form submission for update
+
+
