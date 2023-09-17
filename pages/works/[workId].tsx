@@ -44,6 +44,8 @@ export default function AddEditWorkPage(props: AddEditWorkPageProps) {
 		}
 	}
 
+	if (!router.isReady) return null
+
 	return (
 		<Box>
 			<Container>
@@ -72,3 +74,4 @@ export default function AddEditWorkPage(props: AddEditWorkPageProps) {
 }
 
 AddEditWorkPage.Layout = MainLayout
+AddEditWorkPage.requireLogin = true

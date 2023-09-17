@@ -454,3 +454,11 @@ Read more about [React Quill Props](https://github.com/zenoamaro/react-quill#pro
 - hook `use-add-work`: Implement new hook useAddWork() hook
 - Form level: same with update
 - Page level `[workId]`: handle form submission for add mode
+
+### `07-14` - Require login for add / update page
+
+- Allow to config at page-level: require login or not
+- Update <Auth /> to receive new props: requireLogin
+- Use **replace** instead of **push** for login redirect
+- Only show Add button if user is logged in
+- Fix blinking issue between add and edit mode
