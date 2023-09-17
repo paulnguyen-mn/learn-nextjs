@@ -1,6 +1,6 @@
 import { MainLayout } from '@/components/layout'
 import { WorkForm } from '@/components/work'
-import { useWorkDetails } from '@/hooks'
+import { useAddWork, useWorkDetails } from '@/hooks'
 import { Box, Container, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
@@ -22,13 +22,23 @@ export default function AddEditWorkPage(props: AddEditWorkPageProps) {
 		enabled: router.isReady && !isAddMode,
 	})
 
+	const addNewWork = useAddWork()
+
 	console.log({ workDetails, isLoading })
 
 	async function handleSubmit(payload: FormData) {
 		try {
-			await updateWork(payload)
-			toast.success('update work successfully')
-			// navigate to details page
+			let newWork = null
+			if (isAddMode) {
+				newWork = await addNewWork(payload)
+				toast.success(`add work successfully, ${newWork?.id}`)
+			} else {
+				newWork = await updateWork(payload)
+				toast.success('update work successfully')
+			}
+
+			// navigate to details page - required ID = newWork.id
+			router.push('/works?_page=1&_limit=3') // TODO: change to details page instead
 		} catch (error) {
 			console.log(error)
 		}

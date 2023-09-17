@@ -18,7 +18,7 @@ export function FeatureWorks() {
 				'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
 			fullDescription: '',
 			thumbnailUrl:
-				'https://res.cloudinary.com/kimwy/image/upload/v1648712410/learn-nextjs/item1_cbidwn.jpg',
+				'https://res.cloudinary.com/easy-frontend/image/upload/v1648712410/learn-nextjs/item1_cbidwn.jpg',
 		},
 		{
 			id: '2',
@@ -30,7 +30,7 @@ export function FeatureWorks() {
 				'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
 			fullDescription: '',
 			thumbnailUrl:
-				'https://res.cloudinary.com/kimwy/image/upload/v1648712410/learn-nextjs/item2_usidpx.jpg',
+				'https://res.cloudinary.com/easy-frontend/image/upload/v1648712410/learn-nextjs/item2_usidpx.jpg',
 		},
 		{
 			id: '3',
@@ -42,7 +42,7 @@ export function FeatureWorks() {
 				'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
 			fullDescription: '',
 			thumbnailUrl:
-				'https://res.cloudinary.com/kimwy/image/upload/v1648712410/learn-nextjs/item3_jlfuun.jpg',
+				'https://res.cloudinary.com/easy-frontend/image/upload/v1648712410/learn-nextjs/item3_jlfuun.jpg',
 		},
 	]
 

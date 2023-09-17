@@ -446,4 +446,11 @@ Read more about [React Quill Props](https://github.com/zenoamaro/react-quill#pro
 - Form level `work-form`: Transform form values --> payload to submit API
 - Page level `[workId]`: handle form submission for update
 
+### `07-13` - Form - handle add submit
 
+- fix issue that cloudinary widget not ready
+  - root cause: init add form but cloudinary not ready
+  - solution: retry if failed (0.5 - 1s)
+- hook `use-add-work`: Implement new hook useAddWork() hook
+- Form level: same with update
+- Page level `[workId]`: handle form submission for add mode
