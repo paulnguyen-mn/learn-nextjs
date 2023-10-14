@@ -462,3 +462,26 @@ Read more about [React Quill Props](https://github.com/zenoamaro/react-quill#pro
 - Use **replace** instead of **push** for login redirect
 - Only show Add button if user is logged in
 - Fix blinking issue between add and edit mode
+
+### `07-15` - Redirect back to the page trigger login
+
+1. Before redirect to login page, encode current path and attach to URL query params `back_to`
+2. Once login successfully, extract `back_to` from query params --> redirect to it
+
+Notes:
+- Need to encode to avoid easily change `back_to` URL (btoa)
+- Need to escape special character on URL (encodeURIComponent)
+
+```js
+const path = '/works?_page=1&_limit=3'
+
+// encode
+const base64 = window.btoa(path)
+const safeStringOnURL = encodeURIComponent(base64)
+```
+
+```js
+// decode
+const base64 = decodeURIComponent(safeStringOnURL)
+const path = window.atob(base64)
+```
