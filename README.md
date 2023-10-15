@@ -494,3 +494,9 @@ const path = window.atob(base64)
 - Details Page: /works/:workId/details
 - Not required login to view
 - Bind click event for work item (WorkCard.tsx)
+
+### `08-02` - Intro and setup page
+
+- Fetch data on server
+- Render rich text content (HTML string) from API
+

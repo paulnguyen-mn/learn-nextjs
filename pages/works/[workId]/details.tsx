@@ -1,24 +1,84 @@
 import { MainLayout } from '@/components/layout'
-import { Box, Container, Typography } from '@mui/material'
+import { Work } from '@/models'
+import { Box, Chip, Container, Stack, Typography } from '@mui/material'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
+import { useRouter } from 'next/router'
 
-export default function WorkDetailsPage() {
+export interface WorkDetailsPageProps {
+	work: Work
+}
+
+export default function WorkDetailsPage({ work }: WorkDetailsPageProps) {
+	const router = useRouter()
+
+	if (router.isFallback) {
+		return <div style={{ fontSize: '2rem', textAlign: 'center' }}>Loading...</div>
+	}
+
+	if (!work) return null
+
 	return (
 		<Box>
 			<Container>
 				<Box mb={4} mt={8}>
 					<Typography component="h1" variant="h3" fontWeight="bold">
-						Work Details Page
+						{work.title}
 					</Typography>
 				</Box>
 
-				<Box>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, veritatis totam?
-					Consequatur sunt omnis maxime porro quod placeat quam eveniet asperiores! Atque soluta
-					consectetur pariatur id optio, temporibus laborum facilis.
-				</Box>
+				<Stack direction="row" my={2}>
+					<Chip
+						color="primary"
+						label={new Date(Number.parseInt(work.createdAt)).getFullYear()}
+						size="small"
+					/>
+
+					<Typography ml={3} color="GrayText">
+						{work.tagList.join(', ')}
+					</Typography>
+				</Stack>
+
+				<Typography>{work.shortDescription}</Typography>
+
+				<Box
+					component="div"
+					dangerouslySetInnerHTML={{ __html: work.fullDescription }}
+					sx={{
+						img: {
+							maxWidth: '100%',
+						},
+					}}
+				></Box>
 			</Container>
 		</Box>
 	)
 }
 
 WorkDetailsPage.Layout = MainLayout
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	const response = await fetch(`${process.env.API_URL}/api/works?_page=1&_limit=3`)
+	const data = await response.json()
+
+	return {
+		paths: data.data.map((work: any) => ({ params: { workId: work.id } })),
+		fallback: true,
+	}
+}
+
+export const getStaticProps: GetStaticProps<WorkDetailsPageProps> = async (
+	context: GetStaticPropsContext
+) => {
+	const workId = context.params?.workId
+	if (!workId) return { notFound: true }
+
+	const response = await fetch(`${process.env.API_URL}/api/works/${workId}`)
+	const data = await response.json()
+
+	return {
+		props: {
+			work: data,
+		},
+		revalidate: 300, // 300s = 5m
+	}
+}
