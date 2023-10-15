@@ -495,8 +495,13 @@ const path = window.atob(base64)
 - Not required login to view
 - Bind click event for work item (WorkCard.tsx)
 
-### `08-02` - Intro and setup page
+### `08-02` - Fetch data and render UI
 
 - Fetch data on server
 - Render rich text content (HTML string) from API
+
+### `08-03` - Sanitize HTML string
+
+- Add new package: `yarn add sanitize-html` [github](https://github.com/apostrophecms/sanitize-html)
+- Use default options, but you can customize the way you want.
 

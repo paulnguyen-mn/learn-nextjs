@@ -3,6 +3,7 @@ import { Work } from '@/models'
 import { Box, Chip, Container, Stack, Typography } from '@mui/material'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
+import sanitizeHtml from 'sanitize-html'
 
 export interface WorkDetailsPageProps {
 	work: Work
@@ -74,6 +75,11 @@ export const getStaticProps: GetStaticProps<WorkDetailsPageProps> = async (
 
 	const response = await fetch(`${process.env.API_URL}/api/works/${workId}`)
 	const data = await response.json()
+
+	// sanitize HTML
+	data.fullDescription = sanitizeHtml(data.fullDescription, {
+		allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+	})
 
 	return {
 		props: {
