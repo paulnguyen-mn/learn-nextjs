@@ -485,3 +485,12 @@ const safeStringOnURL = encodeURIComponent(base64)
 const base64 = decodeURIComponent(safeStringOnURL)
 const path = window.atob(base64)
 ```
+
+## Section 8: Work details Page
+
+### `08-01` - Intro and setup page
+
+- Add Edit Page: /works/:workId/index
+- Details Page: /works/:workId/details
+- Not required login to view
+- Bind click event for work item (WorkCard.tsx)
