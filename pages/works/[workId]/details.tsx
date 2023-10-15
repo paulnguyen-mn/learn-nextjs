@@ -1,6 +1,7 @@
 import { MainLayout } from '@/components/layout'
+import { useAuth } from '@/hooks'
 import { Work } from '@/models'
-import { Box, Chip, Container, Stack, Typography } from '@mui/material'
+import { Box, Button, Chip, Container, Stack, Typography } from '@mui/material'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import sanitizeHtml from 'sanitize-html'
@@ -11,6 +12,7 @@ export interface WorkDetailsPageProps {
 
 export default function WorkDetailsPage({ work }: WorkDetailsPageProps) {
 	const router = useRouter()
+	const { isLoggedIn } = useAuth()
 
 	if (router.isFallback) {
 		return <div style={{ fontSize: '2rem', textAlign: 'center' }}>Loading...</div>
@@ -21,11 +23,17 @@ export default function WorkDetailsPage({ work }: WorkDetailsPageProps) {
 	return (
 		<Box>
 			<Container>
-				<Box mb={4} mt={8}>
+				<Stack mb={4} mt={8} direction="row" alignItems="center" justifyContent="space-between">
 					<Typography component="h1" variant="h3" fontWeight="bold">
 						{work.title}
 					</Typography>
-				</Box>
+
+					{isLoggedIn && (
+						<Button variant="contained" onClick={() => router.push(`/works/${work.id}`)}>
+							Edit
+						</Button>
+					)}
+				</Stack>
 
 				<Stack direction="row" my={2}>
 					<Chip

@@ -505,3 +505,10 @@ const path = window.atob(base64)
 - Add new package: `yarn add sanitize-html` [github](https://github.com/apostrophecms/sanitize-html)
 - Use default options, but you can customize the way you want.
 
+### `08-04` - Add edit button + fix build failed
+
+- Fix build failed due to type error of `@types/sanitize-html` [ref](https://github.com/fb55/htmlparser2/issues/1271)
+  - RUN `yarn add --dev typescript@latest`
+  - RUN `yarn add --dev eslint@latest`
+- Add edit button to details page, only show **if logged in**
+- Add back_to param when click on Login item (header-desktop)

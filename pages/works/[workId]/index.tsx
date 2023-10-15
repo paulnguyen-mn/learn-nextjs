@@ -38,7 +38,7 @@ export default function AddEditWorkPage(props: AddEditWorkPageProps) {
 			}
 
 			// navigate to details page - required ID = newWork.id
-			router.push('/works?_page=1&_limit=3') // TODO: change to details page instead
+			router.push(`/works/${newWork?.id}/details`)
 		} catch (error) {
 			console.log(error)
 		}

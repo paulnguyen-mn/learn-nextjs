@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ROUTE_LIST } from './routes'
+import { encodeUrl } from '@/utils'
 
 export function HeaderDesktop() {
 	const router = useRouter()
@@ -41,7 +42,7 @@ export function HeaderDesktop() {
 					))}
 
 					{!isLoggedIn && (
-						<Link href="/login" passHref>
+						<Link href={`/login?back_to=${encodeUrl(router.asPath)}`} passHref>
 							<MuiLink sx={{ ml: 2, fontWeight: 'medium' }}>Login</MuiLink>
 						</Link>
 					)}
